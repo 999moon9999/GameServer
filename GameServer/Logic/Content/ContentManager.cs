@@ -144,6 +144,19 @@ namespace LeagueSandbox.GameServer.Logic.Content
             return GetContentPath(contentPackages, contentType, fileName);
         }
 
+        public string[] GetCommandScriptPath()
+        {
+            var contentType = "Commands";
+            List<string> commands = new List<string>();
+            foreach (var command in _content[contentType])
+            {
+                var contentPackages = _content[contentType][command.Key];
+                var fileName = string.Format("{0}/{1}.lua", command.Key, command.Key);
+                commands.Add(GetContentPath(contentPackages, contentType, fileName));
+            }
+            return commands.ToArray();
+        }
+
         public static ContentManager LoadGameMode(string gameModeName)
         {
             var contentManager = new ContentManager(gameModeName);
